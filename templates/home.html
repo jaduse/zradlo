@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Jídlo</title>
+    
+    <script type="text/javascript" src="/static/jquery-latest.js"></script> 
+    <script type="text/javascript" src="/static/jquery.tablesorter.js"></script> 
+    <script>    
+        $(document).ready(function() 
+        { 
+            $("#kantyna").tablesorter(); 
+        } 
+    ); 
+    </script>
+</head>
+<body>
+    <div class="jumbotron" style="height: auto;/* background-image: url('http://lorempixel.com/1000/800/food/'); background-size: cover;background-position: center center, center center;*/">
+        <div class="container">
+            <h1>Jídlo</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class=".col-md-8">
+            <h2>Kantýna</h2>
+            Datum: {%- if date is not none -%}{{ " " + date.upper() }}{% endif %}
+            <table class="table" id="kantyna">
+              <thead>
+                    <td style="font-weight:bold;">Etc.</td>
+                    <td style="font-weight:bold;">Jídlo</td>
+                    <td style="font-weight:bold;">Cena</td>
+                </thead>
+                {% for i in menu %}
+                 <tr>
+                    <td>{{i.0}}</td>
+                    <td>{{i.1}}</td>
+                    <td>{{i.2}}</td>
+                </tr>
+                {% endfor %}
+            </table>          
+        </div>
+    </div>
+
+</body>
+</html>
