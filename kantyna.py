@@ -17,17 +17,17 @@ def prepare_bs(kantyna):
 		return "Error"
 
 def return_menu(soup):
-	a = soup.find_all("p", style="margin-left:132px;")
+	a = soup.find_all("div", { "class": "widget widgetWysiwyg clearfix" })[0].find_all("p")
+	print(a)
 	items = []
 	for item in a:
-		if "CHCETE" not in item.text:
+		if "CHCETE" not in item.text and "čipové" not in item.text and "2016" not in item.text:
 			print(item.text)
+			#split = text.split("–")
 			text = item.text
-			split = text.split("–")
-			meme = [split[0]]
-			meme.append(re.split("\s{2,}", split[1])[0])
-			meme.append(re.split("\s{2,}", text)[1])
-			items.append(meme)
+			arr = re.split("\s{2,}", text)
+			
+			items.append(arr)
 	return items
 
 
@@ -48,9 +48,10 @@ def lol():
 		menu_list = return_menu(bs)
 
 		debug_print(date, menu_list)
+		print(date, menu_list)
 		return(date, menu_list)
 	except:
-		return None
+		return("", [])
 
 if __name__ == "__main__":
 	file = get_file()
@@ -59,6 +60,7 @@ if __name__ == "__main__":
 
 	date = return_date(bs)
 	menu_list = return_menu(bs)
+	lol()
 	print(menu_list)
 
 	#debug_print(date, menu_list)
