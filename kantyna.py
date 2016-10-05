@@ -50,8 +50,9 @@ def lol():
 		debug_print(date, menu_list)
 		print(date, menu_list)
 		return(date, menu_list)
-	except:
-		return("", [])
+	except Exception as exp:
+		print(exp)
+		return("", [str(exp)])
 
 if __name__ == "__main__":
 	file = get_file()
