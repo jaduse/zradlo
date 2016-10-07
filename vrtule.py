@@ -14,7 +14,7 @@ def return_menu():
 	for item in vrt.split("\n"):
 		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
 		a = re.match("\s+?([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
-		b = re.match("\s+?((Pondělí|Úterý|Středa|Čtvrtek|Pátek)\s+[0-9]\.\s+[0-9]+\.\s+[0-9]+)", item)
+		b = re.match("\s+?((Pondělí|Úterý|Středa|Čtvrtek|Pátek)\s+[0-9]+\.\s+[0-9]+\.\s+[0-9]+)", item)
 		if a is not None:
 			print(a.group(1), a.group(2), a.group(3))
 			gramaz = a.group(1)
