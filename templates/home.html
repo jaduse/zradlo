@@ -11,13 +11,13 @@
     <script>    
         $(document).ready(function() 
         { 
-            $("#kantyna").tablesorter(); 
+            $(".kantyna").tablesorter(); 
         } 
     ); 
     </script>
 </head>
 <body>
-    <div class="jumbotron" style="height: auto;/* background-image: url('http://lorempixel.com/1000/800/food/'); background-size: cover;background-position: center center, center center;*/">
+    <div class="jumbotron" style="height: 240px;/* background-image: url('http://lorempixel.com/1000/800/food/'); background-size: cover;background-position: center center, center center;*/">
         <div class="container">
             <h1>Jídlo</h1>
             <h2>{{dnesni_datum}}</h2>
@@ -62,6 +62,7 @@
         <div class="row">
             <div class="col-xs-6">
                 <h2>Vrtule</h2>
+                Datum: {%- if date3 is not none -%}{{ " " + date3.upper() }}{% endif %}
                 <table class="table table-striped" id="kantyna">
                   <thead>
                         <td style="font-weight:bold;">Jídlo</td>

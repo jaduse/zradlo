@@ -13,6 +13,7 @@ def return_menu():
 	for item in vrt.split("\n"):
 		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
 		a = re.match("\s+?([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
+		b = re.match("\s+?((Pondělí|Úterý|Středa|Čtvrtek|Pátek)\s+[0-9]\.\s+[0-9]+\.\s+[0-9]+)", item)
 		if a is not None:
 			print(a.group(1), a.group(2), a.group(3))
 			gramaz = a.group(1)
@@ -20,22 +21,18 @@ def return_menu():
 			cena = a.group(3)
 			jidla.append([jidlo, cena, gramaz])
 			#jidla.append(["{0}{1}".format(a.group(1), a.group(2))], a.group(3))
+		elif b is not None:
+			date = b.group(1)
 		else:
 			pass
 
-	return jidla
-
-def return_date():
-	#b = soup.find_all("div", { "class": "widget widgetWysiwyg clearfix" })
-	#return(b[0].find_all("p")[0].text)
-	return ""
+	return (date, jidla)
 
 def debug_print(date, menu):
 	print(date, menu)
 
 def lol():
-	date = return_date()
-	menu_list = return_menu()
+	date, menu_list = return_menu()
 
 	debug_print(date, menu_list)
 	return(date, menu_list)
