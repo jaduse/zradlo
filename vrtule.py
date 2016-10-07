@@ -18,8 +18,7 @@ def return_menu():
 			gramaz = a.group(1)
 			jidlo = a.group(2)
 			cena = a.group(3)
-			asdf = "{0} {1}".format(gramaz, jidlo)
-			jidla.append([asdf, cena])
+			jidla.append([jidlo, cena, gramaz])
 			#jidla.append(["{0}{1}".format(a.group(1), a.group(2))], a.group(3))
 		else:
 			pass

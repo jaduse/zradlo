@@ -59,6 +59,24 @@
                 </table>          
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>Vrtule</h2>
+                <table class="table table-striped" id="kantyna">
+                  <thead>
+                        <td style="font-weight:bold;">Jídlo</td>
+                        <td style="font-weight:bold;">Cena</td>
+                    </thead>
+                    {% for i in menu3 %}
+                     <tr>
+                        <td>{{i.0}}</td>
+                        <td>{{i.1}}</td>
+                        <td>{{i.2}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>          
+            </div>
+        </div>
     </div>
 
 </body>

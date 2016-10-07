@@ -3,9 +3,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import jsonify
-from kantyna import lol
 from datetime import datetime
-from test import lol as lol2
+
+
+from kantyna import lol # KANTYNA
+from test import lol as lol2 # CHUTPOINT
+from vrtule import lol as lol3 # VRTULE
 
 app = Flask(__name__)
 app.config["STATIC_FOLDER"] = "static"
@@ -14,9 +17,11 @@ app.config["STATIC_FOLDER"] = "static"
 def hello():
     a = lol()
     b = lol2()
+    c = lol3()
     print(a)
     print(b)
-    return render_template("home.html", dnesni_datum=datetime.today().strftime("%A %d. %m. %Y"), date=a[0], menu=a[1], date2=b[0], menu2=b[1])
+    print(c)
+    return render_template("home.html", dnesni_datum=datetime.today().strftime("%A %d. %m. %Y"), date=a[0], menu=a[1], date2=b[0], menu2=b[1], date3=c[0], menu3=c[1])
 
 @app.route("/version", methods=["GET"])
 def version():
