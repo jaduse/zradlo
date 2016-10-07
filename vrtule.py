@@ -2,53 +2,41 @@
 # coding=utf-8
 # VRTULE
 
-import requests, sys, re
-from bs4 import BeautifulSoup
+import requests, sys, re, codecs
 
-def get_file():
-	kantyna = requests.get("http://uvrtulejidelna.webnode.cz/sluzby/")
-	return kantyna
+def return_menu():
+	fs = codecs.open("vrtule.txt", "r", "utf-8")
+	vrt = fs.read()
+	fs.close()
+	jidla = []
 
-def prepare_bs(kantyna):
-	if kantyna is not None and kantyna.status_code == 200:
-		html = kantyna.text
-		soup = BeautifulSoup(html, 'html.parser')
-		return soup
+	for item in vrt.split("\n"):
+		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
+		a = re.match("([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
+		if a is not None:
+			print(a.group(1), a.group(2), a.group(3))
+			#jidla.append(["{0}{1}".format(a.group(1), a.group(2))], a.group(3))
 
-	else:
-		sys.exit(1)
+	return jidla
 
-def return_menu(soup):
-	a = soup.find_all("p", style="margin-left:132px;")
-	for item in a:
-		
-
-def return_date(soup):
+def return_date():
 	#b = soup.find_all("div", { "class": "widget widgetWysiwyg clearfix" })
 	#return(b[0].find_all("p")[0].text)
 	return ""
 
 def debug_print(date, menu):
-	print(date)
+	print(date, menu)
 
 def lol():
-	file = get_file()
-
-	bs = prepare_bs(file)
-
-	date = return_date(bs)
-	menu_list = return_menu(bs)
+	date = return_date()
+	menu_list = return_menu()
 
 	debug_print(date, menu_list)
 	return(date, menu_list)
 
 if __name__ == "__main__":
-	file = get_file()
-
-	bs = prepare_bs(file)
-
-	date = return_date(bs)
-	menu_list = return_menu(bs)
+	date = return_date()
+	menu_list = return_menu()
 	print(menu_list)
 
 	#debug_print(date, menu_list)
