@@ -12,10 +12,17 @@ def return_menu():
 
 	for item in vrt.split("\n"):
 		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
-		a = re.match("([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
+		a = re.match("\s+?([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
 		if a is not None:
 			print(a.group(1), a.group(2), a.group(3))
+			gramaz = a.group(1)
+			jidlo = a.group(2)
+			cena = a.group(3)
+			asdf = "{0} {1}".format(gramaz, jidlo)
+			jidla.append([asdf, cena])
 			#jidla.append(["{0}{1}".format(a.group(1), a.group(2))], a.group(3))
+		else:
+			pass
 
 	return jidla
 
