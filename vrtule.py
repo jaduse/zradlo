@@ -9,6 +9,7 @@ def return_menu():
 	vrt = fs.read()
 	fs.close()
 	jidla = []
+	date = "???"
 
 	for item in vrt.split("\n"):
 		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
