@@ -33,10 +33,13 @@ def debug_print(date, menu):
 	print(date, menu)
 
 def lol():
-	date, menu_list = return_menu()
+	try:
+		date, menu_list = return_menu()
 
-	debug_print(date, menu_list)
-	return(date, menu_list)
+		debug_print(date, menu_list)
+		return(date, menu_list)
+	except:
+		return("Chyba", ["", "", ""])
 
 if __name__ == "__main__":
 	date = return_date()
