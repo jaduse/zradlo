@@ -21,21 +21,18 @@ def return_menu(soup):
 	b = a.findNext("h1")
 	c = b.findNext("p").text
 	d = re.split(" Kč", c)
-	print(d)
 	
 	items = []
 
-	"""for i in items_orig:
-		items.append(i.text)
-		print(i.text)
-		print("\n")"""
-
-	return(d)
+	for i in d:
+		if "Nevybrali" not in i:
+		items.append([i, "", ""])
+	print("ITEMS {0}".format(items))
+	return(items)
 
 
 def return_date(soup):
-	b = soup.find_all("div", { "class": "widget widgetWysiwyg clearfix" })
-	return(b[0].find_all("p")[0].text)
+	return("")
 
 def lol():
 	try:
@@ -46,10 +43,10 @@ def lol():
 		date = return_date(bs)
 		menu_list = return_menu(bs)
 
-		debug_print(date, menu_list)
 		return(date, menu_list)
-	except:
-		return("", [])
+	except Exception as e:
+		print(e)
+		return(str(e), [])
 
 if __name__ == "__main__":
 	file = get_file()

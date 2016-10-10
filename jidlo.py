@@ -16,7 +16,8 @@ app.config["STATIC_FOLDER"] = "static"
 @app.route("/", methods=["GET"])
 def hello():
     a = lol() or ["", ""]
-    b = lol2() or ["", ""]
+    b = lol2() or ["čus", ""]
+    print("CHUTPOINT\n\n\n\n\n\n\n\n\n", b)
     c = lol3() or ["", ""]
     return render_template("home.html", dnesni_datum=datetime.today().strftime("%A %d. %m. %Y"), date=a[0], menu=a[1], date2=b[0], menu2=b[1], date3=c[0], menu3=c[1])
 
