@@ -20,8 +20,10 @@ def return_menu(soup):
 	a = soup.find("div", { "class": "widget widgetWysiwyg clearfix" })
 	b = a.findNext("h1")
 	c = b.findNext("p").text
-	d = [c, ""]
+	d = re.split(" Kč", c)
 	print(d)
+	
+	items = []
 
 	"""for i in items_orig:
 		items.append(i.text)
@@ -35,9 +37,6 @@ def return_date(soup):
 	b = soup.find_all("div", { "class": "widget widgetWysiwyg clearfix" })
 	return(b[0].find_all("p")[0].text)
 
-def debug_print(date, menu):
-	print(date)
-
 def lol():
 	try:
 		file = get_file()
@@ -48,7 +47,6 @@ def lol():
 		menu_list = return_menu(bs)
 
 		debug_print(date, menu_list)
-		print(date, menu_list)
 		return(date, menu_list)
 	except:
 		return("", [])
@@ -60,7 +58,5 @@ if __name__ == "__main__":
 
 	date = return_date(bs)
 	menu_list = return_menu(bs)
-	lol()
-	print(menu_list)
 
 	#debug_print(date, menu_list)
