@@ -26,7 +26,7 @@ def return_menu(soup):
 
 	for i in d:
 		if "Nevybrali" not in i:
-		items.append([i, "", ""])
+			items.append([i, "", ""])
 	print("ITEMS {0}".format(items))
 	return(items)
 
