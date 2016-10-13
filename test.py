@@ -23,12 +23,28 @@ def return_menu(soup):
 	d = re.split(" Kč", c)
 	
 	items = []
+	date = ""
 
 	for i in d:
 		if "Nevybrali" not in i:
-			items.append([i, "", ""])
+			if "2016" in i: # pokud je na radku datum, odchytme ho
+				a = re.match("(.*?[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4})", i)
+				if a is not None:
+					date = a.group(1)
+					i = i[len(date):]
+			
+			re_cena = re.match(".*?\s?([0-9]+)$", i)
+			if re_cena is not None:
+				cena = re_cena.group(1)
+				i = i[:-len(cena)]
+				items.append([i, str(cena), ""])
+			else:
+				items.append([i, "", ""])
+			print(i)
+
 	print("ITEMS {0}".format(items))
-	return(items)
+	print("DATE", date)
+	return(items, date)
 
 
 def return_date(soup):
@@ -41,7 +57,7 @@ def lol():
 		bs = prepare_bs(file)
 
 		date = return_date(bs)
-		menu_list = return_menu(bs)
+		menu_list, date = return_menu(bs)
 
 		return(date, menu_list)
 	except Exception as e:
