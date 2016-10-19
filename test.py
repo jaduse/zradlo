@@ -37,9 +37,9 @@ def return_menu(soup):
 			if re_cena is not None:
 				cena = re_cena.group(1)
 				i = i[:-len(cena)]
-				items.append([i, str(cena), ""])
+				items.append([i.rstrip(), str(cena), ""]) # TODO: fix
 			else:
-				items.append([i, "", ""])
+				items.append([i.rstrip(), "", ""]) 
 			print(i)
 
 	print("ITEMS {0}".format(items))
