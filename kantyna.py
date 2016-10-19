@@ -25,7 +25,9 @@ def return_menu(soup):
 			print(item.text)
 			#split = text.split("–")
 			text = item.text
-			arr = re.split("\s{2,}", text)
+			match = re.match("(.*?)([0-9]{2,3}\s+Kč)", text)
+			if match is not None:
+				arr =[match.group(1), match.group(2)]
 			
 			items.append(arr)
 	return items
