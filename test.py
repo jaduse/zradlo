@@ -47,16 +47,16 @@ def return_menu(soup):
 	return(items, date)
 
 
-def return_date(soup):
-	return("")
+#def return_date(soup):
+#	return("")
 
-def lol():
+def result():
 	try:
 		file = get_file()
 
 		bs = prepare_bs(file)
 
-		date = return_date(bs)
+		#date = return_date(bs)
 		menu_list, date = return_menu(bs)
 
 		return(date, menu_list)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
 	bs = prepare_bs(file)
 
-	date = return_date(bs)
+	#date = return_date(bs)
 	menu_list = return_menu(bs)
 
 	#debug_print(date, menu_list)

@@ -12,7 +12,6 @@ def prepare_bs(kantyna):
 		html = kantyna.text
 		soup = BeautifulSoup(html, 'html.parser')
 		return soup
-
 	else:
 		return "Error"
 
@@ -40,7 +39,7 @@ def return_date(soup):
 def debug_print(date, menu):
 	print(date)
 
-def lol():
+def result():
 	try:
 		file = get_file()
 
@@ -64,6 +63,5 @@ if __name__ == "__main__":
 	date = return_date(bs)
 	menu_list = return_menu(bs)
 	lol()
-	print(menu_list)
 
 	#debug_print(date, menu_list)

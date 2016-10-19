@@ -4,6 +4,12 @@
 
 import requests, sys, re, codecs
 
+# TODO: POLIVKY+posledni radky, co nemaj \t
+# TODO: POLIVKY+posledni radky, co nemaj \t
+# TODO: POLIVKY+posledni radky, co nemaj \t
+# TODO: POLIVKY+posledni radky, co nemaj \t
+# TODO: POLIVKY+posledni radky, co nemaj \t
+
 def return_menu():
 	fs = codecs.open("vrtule.txt", "r", "utf-8")
 	vrt = fs.read()
@@ -32,7 +38,7 @@ def return_menu():
 def debug_print(date, menu):
 	print(date, menu)
 
-def lol():
+def result():
 	try:
 		date, menu_list = return_menu()
 
@@ -46,4 +52,3 @@ if __name__ == "__main__":
 	menu_list = return_menu()
 	print(menu_list)
 
-	#debug_print(date, menu_list)
