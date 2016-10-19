@@ -2,4 +2,5 @@
 *.txt
 *pycache*	
 *pycache*/*
-
+*.pyc
+*.pyo
