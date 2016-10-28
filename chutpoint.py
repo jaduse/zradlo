@@ -7,13 +7,10 @@ from bs4 import BeautifulSoup
 
 
 def get_file():
-    response = requests.get(
-        "http://www.manihi.cz/zavodni-stravovani-kantyna/"
-        "kantyna-rosmarin-business-center/denni-menu"
-    )
+    response = requests.get("http://www.chutpoint.cz/denni-nabidka/")
 
-    if not response or response.status_code != 200:
-        return requests.RequestException("Kantyna response error")
+    if response.status_code != 200:
+        raise requests.RequestException("Chutpoint response error")
 
     html = response.text
     soup = BeautifulSoup(html, 'html.parser')
@@ -21,7 +18,7 @@ def get_file():
 
 
 def return_menu(soup):
-    date, *menu_items = soup.find_all(
+    _, date, *menu_items = soup.find_all(
         "div", {"class": "widget widgetWysiwyg clearfix"})[0].find_all("p")
 
     food = []
@@ -37,12 +34,6 @@ def return_menu(soup):
     return (date.text.strip(), food)
 
 
-#  deprecated
-def return_date(soup):
-    b = soup.find_all("div", {"class": "widget widgetWysiwyg clearfix"})
-    return(b[0].find_all("p")[0].text)
-
-
 def result():
     try:
         page = get_file()
@@ -50,9 +41,8 @@ def result():
 
         return (date, menu_list)
 
-    except Exception as exp:
-        return ("", [str(exp)])
-
+    except Exception as e:
+        return(str(e), [])
 
 if __name__ == "__main__":
     print(result())

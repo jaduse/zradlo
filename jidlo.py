@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
 from flask import Flask
 from flask import render_template
-from flask import request
-from flask import jsonify
 from datetime import datetime
 
-from kantyna import result as kantyna # KANTYNA
-from test import result as chutpoint # CHUTPOINT
-from vrtule import result as vrtule # VRTULE
+from kantyna import result as Kantyna # KANTYNA
+from chutpoint import result as Chutpoint # CHUTPOINT
+from vrtule import result as Vrtule # VRTULE
 
 app = Flask(__name__)
 app.config["STATIC_FOLDER"] = "static"
 
 @app.route("/", methods=["GET"])
 def home():
-    a = kantyna() or ["", ""]
-    b = chutpoint() or ["", ""]
-    c = vrtule() or ["", ""]
-    return render_template("home.html", dnesni_datum=datetime.today().strftime("%A %d. %m. %Y"), 
-    	date=a[0],
-    	menu=a[1],
-    	date2=b[0],
-    	menu2=b[1],
-    	date3=c[0],
-    	menu3=c[1])
+    kant_date, kant_menu = Kantyna()
+    chut_date, chut_menu = Chutpoint()
+    vrt_date, vrt_menu = Vrtule()
+
+    dnesni_datum = datetime.today().strftime("%A %d. %m. %Y")
+    return render_template("home.html",
+        dnesni_datum=dnesni_datum,
+        kant_date=kant_date,
+        kant_menu=kant_menu,
+        chut_date=chut_date,
+        chut_menu=chut_menu,
+        vrt_date=vrt_date,
+        vrt_menu=vrt_menu
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

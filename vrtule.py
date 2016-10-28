@@ -2,7 +2,14 @@
 # coding=utf-8
 # VRTULE
 
-import requests, sys, re, codecs
+import os
+import requests
+import re
+import tempfile
+
+from bs4 import BeautifulSoup
+from subprocess import check_output
+
 
 # TODO: POLIVKY+posledni radky, co nemaj \t
 # TODO: POLIVKY+posledni radky, co nemaj \t
@@ -10,45 +17,69 @@ import requests, sys, re, codecs
 # TODO: POLIVKY+posledni radky, co nemaj \t
 # TODO: POLIVKY+posledni radky, co nemaj \t
 
-def return_menu():
-	fs = codecs.open("vrtule.txt", "r", "utf-8")
-	vrt = fs.read()
-	fs.close()
-	jidla = []
-	date = "???"
+_, TMP = tempfile.mkstemp()
 
-	for item in vrt.split("\n"):
-		#([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)
-		a = re.match("\s+?([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
-		b = re.match("\s+?((Pondělí|Úterý|Středa|Čtvrtek|Pátek)\s+[0-9]+\.\s+[0-9]+\.\s+[0-9]+)", item)
-		if a is not None:
-			print(a.group(1), a.group(2), a.group(3))
-			gramaz = a.group(1)
-			jidlo = a.group(2)
-			cena = a.group(3)
-			jidla.append([jidlo, cena, gramaz])
-			#jidla.append(["{0}{1}".format(a.group(1), a.group(2))], a.group(3))
-		elif b is not None:
-			date = b.group(1)
-		else:
-			pass
 
-	return (date, jidla)
+def get_file():
+    response = requests.get("http://uvrtulejidelna.webnode.cz/sluzby/")
+
+    if response.status_code != 200:
+        raise requests.RequestException("Error: Vrtule response error")
+
+    html = response.text
+    bs = BeautifulSoup(html, "html.parser")
+
+    content_div = bs.find_all("div", {"class": "box_content"})[-1]
+
+    for a in content_div.find_all("a", href=True):
+        url = a["href"]
+        if ".doc" in url:
+            doc_url = url
+
+    doc_stream = requests.get(doc_url, stream=True)
+    with open(TMP, "wb") as f:
+        for chunk in doc_stream.iter_content(chunk_size=1024):
+            f.write(chunk)
+
+    antiword = check_output(["antiword", TMP]).decode("utf8")
+
+    return antiword
+
+
+def return_menu(antiword):
+    lines = [l for l in antiword.split("\n") if l]
+
+    food = []
+    date = lines[2].strip()
+
+    for item in lines[2:]:
+        match = re.match("\s+?([0-9]+g)\s+(.*?)\s+([0-9]+\s+Kč)", item)
+        if not match:
+            continue
+
+        food.append((
+            match.group(1),
+            match.group(2),
+            match.group(3)
+        ))
+
+    return (date, food)
+
 
 def debug_print(date, menu):
-	print(date, menu)
+    print(date, menu)
+
 
 def result():
-	try:
-		date, menu_list = return_menu()
+    try:
+        page = get_file()
+        date, menu_list = return_menu(page)
 
-		debug_print(date, menu_list)
-		return(date, menu_list)
-	except:
-		return("Chyba", ["", "", ""])
+        return (date, menu_list)
+    except:
+        return ("Chyba", ["", "", ""])
+
+    os.remove(TMP)
 
 if __name__ == "__main__":
-	date = return_date()
-	menu_list = return_menu()
-	print(menu_list)
-
+    print(result())

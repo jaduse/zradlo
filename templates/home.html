@@ -26,16 +26,16 @@
         <div class="row">
             <div class="col-xs-6">
                 <h2><a href="http://www.manihi.cz/zavodni-stravovani-kantyna/kantyna-rosmarin-business-center/denni-menu/">Kantýna</a></h2>
-                Datum: {%- if date is not none -%}{{ " " + date.upper() }}{% endif %}
+                Datum: {%- if kant_date is not none -%}{{ " " + kant_date.upper() }}{% endif %}
                 <table class="table table-striped" id="kantyna">
                   <thead>
                         <td style="font-weight:bold;">Jídlo</td>
                         <td style="font-weight:bold;">Cena</td>
                     </thead>
-                    {% for i in menu %}
+                    {% for i, p in kant_menu %}
                      <tr>
-                        <td>{{i.0}}</td>
-                        <td>{{i.1}}</td>
+                        <td>{{ i }}</td>
+                        <td>{{ p }}</td>
                         <!--<td>{{i.2}}</td>-->
                     </tr>
                     {% endfor %}
@@ -43,16 +43,16 @@
             </div>
            <div class="col-xs-6">
                 <h2><a href="http://www.chutpoint.cz/denni-nabidka/">Chuťpoint</a></h2>
-                Datum: {%- if date2 is not none -%}{{ " " + date2.upper() }}{% endif %}
+                Datum: {%- if chut_date is not none -%}{{ " " + chut_date.upper() }}{% endif %}
                 <table class="table table-striped" id="kantyna">
                   <thead>
                         <td style="font-weight:bold;">Jídlo</td>
                         <td style="font-weight:bold;">Cena</td>
                     </thead>
-                    {% for i in menu2 %}
+                    {% for i, p in chut_menu %}
                      <tr>
-                        <td>{{i.0}}</td>
-                        <td>{{i.1}} Kč  </td> 
+                        <td>{{ i }}</td>
+                        <td>{{ p }} Kč  </td> 
                     </tr>
                     {% endfor %}
                 </table>          
@@ -62,18 +62,18 @@
             <div class="col-xs-6">
                 <h2><a href="http://uvrtulejidelna.webnode.cz/sluzby/">Vrtule</a></h2>
                 TODO: Polívky
-                Datum: {%- if date3 is not none -%}{{ " " + date3.upper() }}{% endif %}
+                Datum: {%- if vrt_date is not none -%}{{ " " + vrt_date.upper() }}{% endif %}
                 <table class="table table-striped" id="kantyna">
                   <thead>
+                        <td style="font-weight:bold;">Gramáž</td>
                         <td style="font-weight:bold;">Jídlo</td>
                         <td style="font-weight:bold;">Cena</td>
-                        <td style="font-weight:bold;">Gramáž</td>
                     </thead>
-                    {% for i in menu3 %}
+                    {% for w, i, p in vrt_menu %}
                      <tr>
-                        <td>{{i.0}}</td>
-                        <td>{{i.1}}</td>
-                        <td>{{i.2}}</td>
+                        <td>{{ w }}</td>
+                        <td>{{ i }}</td>
+                        <td>{{ p }}</td>
                     </tr>
                     {% endfor %}
                 </table>          
